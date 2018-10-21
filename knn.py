@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from scipy.spatial import distance
+from scipy.stats import pearsonr
+
 from heapq import nsmallest
 
 class KNN:
@@ -24,30 +26,16 @@ class KNN:
     def predict(self, testdata):
         self.testData, self.testTarget = np.array_split(testdata, [4], axis=1)
         #print(self.testData)
+        self.predictedTarget = []
 
 
-        '''''
-        self.testData = sorted(self.testData, key=lambda a_entry: a_entry[0])
-        print("----------------------------------------------------")
-        print(self.testData)
-        
-        sortowanie wg 1 kolumny
-        
-        '''''
 
         self.distances = []
 
 
 
 
-        ''''
-        for i in range(self.data.shape[0]):
-            for j in range(self.testData.shape[0]):
 
-                self.distances = distance.euclidean(self.data[i],self.testData[j])
-                self.counter = self.counter + 1
-                print("{0} --- {1} ---- {2} ---- {3}".format(self.counter, self.data[i],self.testData[j],self.distances))
-        '''''
 
 
 
@@ -55,6 +43,7 @@ class KNN:
             self.counter = self.counter + 1
 
             self.distances.append(distance.euclidean(self.data[i], self.testData[self.a]))
+
 
             #print(self.counter, self.distances)
 
@@ -75,7 +64,7 @@ class KNN:
             kNajblizszychSasiadow.append(self.ldataLocal[i][4])
             #print(kNajblizszychSasiadow[i])
 
-
+        #z kNajblizszychSasiadow wybiera najczesciej wysteu
         def most_common(lista):
             return max(set(lista), key=lista.count)
 
@@ -83,12 +72,16 @@ class KNN:
         print(most_common(kNajblizszychSasiadow))
         print(self.testTarget[self.a])
         print(most_common(kNajblizszychSasiadow) == self.testTarget[self.a] )
+
+
+        self.predictedTarget.append(most_common(kNajblizszychSasiadow))
+
         if most_common(kNajblizszychSasiadow) == self.testTarget[self.a]:
             self.plus = self.plus + 1
         else:
             self.minus = self.minus + 1
 
-
+        return  self.predictedTarget
 
 
 
