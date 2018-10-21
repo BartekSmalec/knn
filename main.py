@@ -10,8 +10,13 @@ def main():
     # print(ldata[:,0])  # print kolumne "0"
 
 
-    a = KNN(5,ldata, "E")
-    a.predict(tdata)
+
+    # popraw to a
+    a = KNN(2,ldata, "E")
+    for i in range (14):
+        a.setA(i)
+        a.predict(tdata)
+    print(a.plus/(a.plus + a.minus)*100)
 
 if __name__ == '__main__':
     main()
