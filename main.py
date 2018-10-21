@@ -15,13 +15,13 @@ def main():
 
 
     # popraw to a
-    a = KNN(3,ldata, "E")
-
-    for i in range (tdata.shape[0]):
-        print(i)
-        a.setA(i)
-        a.predict(tdata)
-    #print(a.plus + a.minus)
+    a = KNN(2,ldata, "E")
+    a.predict(tdata)
+    #for i in range (tdata.shape[0]):
+        #print(i)
+        #a.setA(i)
+        #a.predict(tdata)
+    print(a.plus + a.minus)
     print(a.plus/(a.plus + a.minus)*100)
 
 if __name__ == '__main__':

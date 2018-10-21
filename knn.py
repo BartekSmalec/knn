@@ -1,3 +1,5 @@
+from os import terminal_size
+
 import pandas as pd
 import numpy as np
 from scipy.spatial import distance
@@ -23,10 +25,10 @@ class KNN:
 
 
 
-    def predict(self, testdata):
+    def predictOne(self, testdata):
         self.testData, self.testTarget = np.array_split(testdata, [4], axis=1)
         #print(self.testData)
-        self.predictedTarget = []
+
 
 
 
@@ -74,15 +76,19 @@ class KNN:
         print(most_common(kNajblizszychSasiadow) == self.testTarget[self.a] )
 
 
-        self.predictedTarget.append(most_common(kNajblizszychSasiadow))
+
 
         if most_common(kNajblizszychSasiadow) == self.testTarget[self.a]:
             self.plus = self.plus + 1
         else:
             self.minus = self.minus + 1
 
-        return  self.predictedTarget
+    def predict(self, testData):
+        for i in range(testData.shape[0]):
+            print(i)
+            self.setA(i)
 
+            self.predictOne(testData)
 
 
 
