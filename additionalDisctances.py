@@ -30,7 +30,8 @@ class dist:
             #print(fabs(data[i] - testData[i]))
         return sum
     def pearson(data, testData):
-        
+        print("xd")
+
 
 
 
