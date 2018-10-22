@@ -10,16 +10,12 @@ def main():
 
     testData, testTarget = np.array_split(tdata, [4], axis=1)
 
-
     a = KNN(2, ldata, "E")
+
     #print(a.predict(tdata))
-    print(a.score(testData,testTarget))
-    #a.score(tdata,testTarget)
-
-
+    print(a.score(testData, testTarget))
+    # a.score(tdata,testTarget)
 
 
 if __name__ == '__main__':
     main()
-
-

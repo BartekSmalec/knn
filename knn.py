@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.spatial import distance
+from additionalDisctances import dist
 
 
 class KNN:
@@ -9,11 +10,11 @@ class KNN:
         self.method = method
         self.data, self.target = np.array_split(self.ldata, [4], axis=1)
         self.counter = 0
-        # self.a = 10
+
         self.plus = 0
         self.minus = 0
         self.predictedTarget = []
-        #self.predictedTarget = np.empty(self.target.shape[0])
+        # self.predictedTarget = np.empty(self.target.shape[0])
 
     def setIndex(self, a):
         self.index = a
@@ -25,10 +26,11 @@ class KNN:
         self.distances = []
 
         for i in range(self.data.shape[0]):
-            self.counter = self.counter + 1
+            #self.counter = self.counter + 1
 
-            self.distances.append(distance.euclidean(self.data[i], self.testData[self.index]))
 
+            #self.distances.append(distance.euclidean(self.data[i], self.testData[self.index]))
+            self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
             # print(self.counter, self.distances)
 
         # kopiuje całą tabele
@@ -58,13 +60,11 @@ class KNN:
         print(most_common(kNajblizszychSasiadow) == self.testTarget[self.index] )
         '''''
 
-
-        #if most_common(kNajblizszychSasiadow) == self.testTarget[self.index]:
-            #self.plus = self.plus + 1
-        #else:
-            #self.minus = self.minus + 1
-        #print(self.plus / (self.plus + self.minus) * 100)
-
+        # if most_common(kNajblizszychSasiadow) == self.testTarget[self.index]:
+        # self.plus = self.plus + 1
+        # else:
+        # self.minus = self.minus + 1
+        # print(self.plus / (self.plus + self.minus) * 100)
 
         return most_common(kNajblizszychSasiadow)
 
@@ -72,7 +72,7 @@ class KNN:
         for i in range(testData.shape[0]):
             # print(i)
             self.setIndex(i)
-            #np.append(self.predictedTarget,self.predictOne(testData) )
+            # np.append(self.predictedTarget,self.predictOne(testData) )
             self.predictedTarget.append(self.predictOne(testData))
         return self.predictedTarget
 
@@ -80,22 +80,21 @@ class KNN:
         predictedTarget = self.predict(tdata)
         predictedTarget = np.asarray(predictedTarget)
 
-        print(predictedTarget.shape)
-        print(self.testTarget.shape)
+        #print(predictedTarget.shape)
+        #print(self.testTarget.shape)
 
-        #print(predictedTarget[3])
-        #print(testTarget[:,0][3])
+        # print(predictedTarget[3])
+        # print(testTarget[:,0][3])
         for i in range(testTarget.shape[0]):
 
-            print("Predicted: {0}, Correct value: {1}".format(predictedTarget[i],testTarget[:, 0][i]))
-            if predictedTarget[i] == testTarget[:,0][i]:
+            print("Predicted: {0}, Correct value: {1}, counter: {2}".format(predictedTarget[i], testTarget[:, 0][i], self.counter))
+            self.counter = self.counter + 1
+            if predictedTarget[i] == testTarget[:, 0][i]:
                 print("true")
-                self.plus =  self.plus + 1
+                self.plus = self.plus + 1
             else:
                 print("false")
                 self.minus = self.minus + 1
 
             print("----------------------------------------------")
-        return (self.plus/(self.plus + self.minus) * 100)
-
-
+        return (self.plus / (self.plus + self.minus) * 100)
