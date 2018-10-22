@@ -38,6 +38,13 @@ class KNN:
             for i in range(self.data.shape[0]):
                 print("M")
                 self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
+        elif(self.method == "P"):
+            for i in range(self.data.shape[0]):
+                print("P")
+                self.distances.append(dist.pearson(self.data[i], self.testData[self.index]))
+
+
+
          # print(self.counter, self.distances)
         #print(self.distances)
         # kopiuje całą tabele

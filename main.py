@@ -10,7 +10,7 @@ def main():
 
     testData, testTarget = np.array_split(tdata, [4], axis=1)
 
-    a = KNN(2, ldata, "E")
+    a = KNN(3, ldata, "P")
 
     #print(a.predict(tdata))
     print(a.score(testData, testTarget))
