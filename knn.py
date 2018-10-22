@@ -16,7 +16,7 @@ class KNN:
         self.predictedTarget = []
         # self.predictedTarget = np.empty(self.target.shape[0])
 
-        print("Method {0}".format(self.method))
+        #print("Method {0}".format(self.method))
 
     def setIndex(self, a):
         self.index = a
@@ -27,15 +27,19 @@ class KNN:
 
         self.distances = []
 
-        for i in range(self.data.shape[0]):
+
             #self.counter = self.counter + 1
 
-            if(self.method == "E"):
+        if(self.method == "E"):
+            for i in range(self.data.shape[0]):
+                print("E")
                 self.distances.append(distance.euclidean(self.data[i], self.testData[self.index]))
-            elif(self.method == "M"):
+        elif(self.method == "M"):
+            for i in range(self.data.shape[0]):
+                print("M")
                 self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
-            # print(self.counter, self.distances)
-
+         # print(self.counter, self.distances)
+        #print(self.distances)
         # kopiuje całą tabele
         self.ldataLocal = self.ldata
         self.distances = np.asarray(self.distances)
