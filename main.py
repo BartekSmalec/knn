@@ -5,12 +5,15 @@ from knn import KNN
 
 
 def main():
-    ldata = np.array(pd.read_csv("Data/iris.data.learning", header=None))
-    tdata = np.array(pd.read_csv("Data/iris.data.test", header=None))
+    try:
+        ldata = np.array(pd.read_csv("Data/iris.data.learning", header=None))
+        tdata = np.array(pd.read_csv("Data/iris.data.test", header=None))
+    except:
+        print("Bad path to file")
 
     testData, testTarget = np.array_split(tdata, [4], axis=1)
 
-    a = KNN(3, ldata, "E")
+    a = KNN(3, ldata, "M")
 
     print(a.score(testData, testTarget))
 

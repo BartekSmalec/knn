@@ -6,6 +6,21 @@ from additionalDisctances import dist
 
 class KNN:
     def __init__(self, K, ldata, method):
+        if type(K) is not int:
+            raise TypeError("Only integer allowed")
+
+        if type(ldata) is not np.ndarray:
+            raise TypeError("Onlyd numpy.ndarray allowed")
+
+        if type(method) is not str:
+            raise TypeError("Only string allowed")
+
+        if K <= 0:
+            raise ValueError("K can not be less or equal 0")
+
+        if method not in ["E", "M", "P"]:
+            raise ValueError("Allowed method: E, M, P")
+
         self.K = K
         self.ldata = ldata
         self.method = method
@@ -15,36 +30,30 @@ class KNN:
         self.plus = 0
         self.minus = 0
         self.predictedTarget = []
-        # self.predictedTarget = np.empty(self.target.shape[0])
-
-        # print("Method {0}".format(self.method))
 
     def setIndex(self, a):
         self.index = a
 
     def predictOne(self, testdata):
         self.testData, self.testTarget = np.array_split(testdata, [4], axis=1)
-        # print(self.testData)
 
         self.distances = []
 
-        # self.counter = self.counter + 1
-
         if (self.method == "E"):
             for i in range(self.data.shape[0]):
-                print("E")
+                # print("E")
                 self.distances.append(distance.euclidean(self.data[i], self.testData[self.index]))
         elif (self.method == "M"):
             for i in range(self.data.shape[0]):
-                print("M")
+                # print("M")
+                print(self.data[i])
+                print(self.testData[self.index])
+                print(dist.manhattanDistance(self.data[i], self.testData[self.index]))
                 self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
         elif (self.method == "P"):
             for i in range(self.data.shape[0]):
-                print("P")
+                # print("P")
                 self.distances.append(dist.pearson(self.data[i], self.testData[self.index]))
-
-        # print(self.counter, self.distances)
-        # print(self.distances)
 
         # kopiuje całą tabele
         self.ldataLocal = self.ldata
@@ -70,9 +79,8 @@ class KNN:
 
     def predict(self, testData):
         for i in range(testData.shape[0]):
-            # print(i)
             self.setIndex(i)
-            # np.append(self.predictedTarget,self.predictOne(testData) )
+
             self.predictedTarget.append(self.predictOne(testData))
         return self.predictedTarget
 
