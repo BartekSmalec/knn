@@ -46,9 +46,6 @@ class KNN:
         elif (self.method == "M"):
             for i in range(self.data.shape[0]):
                 # print("M")
-                print(self.data[i])
-                print(self.testData[self.index])
-                print(dist.manhattanDistance(self.data[i], self.testData[self.index]))
                 self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
         elif (self.method == "P"):
             for i in range(self.data.shape[0]):
