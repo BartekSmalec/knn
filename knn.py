@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.spatial import distance
+
 from additionalDisctances import dist
 
 
@@ -16,7 +17,7 @@ class KNN:
         self.predictedTarget = []
         # self.predictedTarget = np.empty(self.target.shape[0])
 
-        #print("Method {0}".format(self.method))
+        # print("Method {0}".format(self.method))
 
     def setIndex(self, a):
         self.index = a
@@ -27,26 +28,24 @@ class KNN:
 
         self.distances = []
 
+        # self.counter = self.counter + 1
 
-            #self.counter = self.counter + 1
-
-        if(self.method == "E"):
+        if (self.method == "E"):
             for i in range(self.data.shape[0]):
                 print("E")
                 self.distances.append(distance.euclidean(self.data[i], self.testData[self.index]))
-        elif(self.method == "M"):
+        elif (self.method == "M"):
             for i in range(self.data.shape[0]):
                 print("M")
                 self.distances.append(dist.manhattanDistance(self.data[i], self.testData[self.index]))
-        elif(self.method == "P"):
+        elif (self.method == "P"):
             for i in range(self.data.shape[0]):
                 print("P")
                 self.distances.append(dist.pearson(self.data[i], self.testData[self.index]))
 
+        # print(self.counter, self.distances)
+        # print(self.distances)
 
-
-         # print(self.counter, self.distances)
-        #print(self.distances)
         # kopiuje całą tabele
         self.ldataLocal = self.ldata
         self.distances = np.asarray(self.distances)
@@ -67,19 +66,6 @@ class KNN:
         def most_common(lista):
             return max(set(lista), key=lista.count)
 
-        '''''
-        print("------------------------------------")
-        print(most_common(kNajblizszychSasiadow))
-        print(self.testTarget[self.index])
-        print(most_common(kNajblizszychSasiadow) == self.testTarget[self.index] )
-        '''''
-
-        # if most_common(kNajblizszychSasiadow) == self.testTarget[self.index]:
-        # self.plus = self.plus + 1
-        # else:
-        # self.minus = self.minus + 1
-        # print(self.plus / (self.plus + self.minus) * 100)
-
         return most_common(kNajblizszychSasiadow)
 
     def predict(self, testData):
@@ -94,14 +80,10 @@ class KNN:
         predictedTarget = self.predict(tdata)
         predictedTarget = np.asarray(predictedTarget)
 
-        #print(predictedTarget.shape)
-        #print(self.testTarget.shape)
-
-        # print(predictedTarget[3])
-        # print(testTarget[:,0][3])
         for i in range(testTarget.shape[0]):
 
-            print("Predicted: {0}, Correct value: {1}, counter: {2}".format(predictedTarget[i], testTarget[:, 0][i], self.counter))
+            print("Predicted: {0}, Correct value: {1}, counter: {2}".format(predictedTarget[i], testTarget[:, 0][i],
+                                                                            self.counter))
             self.counter = self.counter + 1
             if predictedTarget[i] == testTarget[:, 0][i]:
                 print("true")
